@@ -215,6 +215,8 @@ plots = (curr_page-1)*nplot + [1:nplot];
 % Pass 1: plot everything and align axes.
 clf
 
+subplot_dim = [];
+
 all_axes = [];
 all_image_axes = [];
 for x = plots
@@ -226,6 +228,11 @@ for x = plots
   
   curr_axes = subplot(properties.subplots{x}{:});
   feval(properties.plot_fun{x}, d);
+  
+  if isempty(subplot_dim)
+      pos = get(curr_axes, 'Position');
+      subplot_dim = pos(3:end);
+  end
 
   all_axes = [all_axes curr_axes];
   if length(size(d)) == 2
@@ -288,6 +295,9 @@ for x = plots
       ylabel('')
     end
   end
+  
+  pos = get(curr_axes, 'Position');
+  set(curr_axes, 'Position', [pos(1:2) subplot_dim]);
   
   % Draw colorbars on all plots (even if they are not images) to keep
   % axis widths consistent.
