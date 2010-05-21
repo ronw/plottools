@@ -1,36 +1,31 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>demo</title>
+      <meta name="generator" content="MATLAB 7.8">
+      <meta name="date" content="2010-05-21">
+      <meta name="m-file" content="demo"><style type="text/css">
 
-	<title>ronw/plottools @ GitHub</title>
-	
-	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #ffffff;
-		  font-family: "Helvetica,Arial,FreeSans";
-  		color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-		h1 { font-size: 3.8em; color: #1c49b0; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #1c49b0; }
-    a { color: #1c49b0; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-		pre.shell { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
+body {
+  background-color: white;
+  margin:10px;
+}
 
-h3 {
-  color: #1c49b0; 
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
   font-size: medium;
 }
 
@@ -46,6 +41,9 @@ pre.codeinput {
   background: #EEEEEE;
   padding: 10px;
 }
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
 
 span.keyword {color: #0000FF}
 span.comment {color: #228B22}
@@ -62,75 +60,74 @@ pre.error {
   color: red;
 }
 
-	</style>
-	
-</head>
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
 
-<body>
-  <a href="http://github.com/ronw/plottools"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
-  <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/ronw/plottools/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/ronw/plottools/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/ronw/plottools">plottools</a>
-      <span class="small">by <a href="http://github.com/ronw">ronw</a></span></h1>
-
-    <div class="description">
-      MATLAB plotting wrappers and GUI controls
-    </div>
-
-    <h2>Example usage</h2>
-
-         <h3>Load some data<a name="1"></a></h3><pre class="codeinput">[dsrc1 fs] = wavread(<span class="string">'<a href="http://www.ee.columbia.edu/~ronw/sounds/ssc/clean/t25_bwik1s_m25_bgwf4n.wav">sounds/ssc/clean/t25_bwik1s_m25_bgwf4n.wav</a>'</span>);
-[dsrc2 fs] = wavread(<span class="string">'<a href="http://www.ee.columbia.edu/~ronw/sounds/ssc/clean/t25_bwik1s_m25_bgwf4n_masker.wav">sounds/ssc/clean/t25_bwik1s_m25_bgwf4n_masker.wav</a>'</span>);
+  </style></head>
+   <body>
+      <div class="content">
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Load some data</a></li>
+               <li><a href="#2">plotall</a></li>
+               <li><a href="#3">Panning and zooming</a></li>
+               <li><a href="#4">Configuring subplot layout</a></li>
+               <li><a href="#5">Aligning axes</a></li>
+               <li><a href="#7">Pages</a></li>
+               <li><a href="#8">More properties</a></li>
+               <li><a href="#9">Usage</a></li>
+            </ul>
+         </div>
+         <h2>Load some data<a name="1"></a></h2><pre class="codeinput">[dsrc1 fs] = wavread(<span class="string">'sounds/ssc/clean/t25_bwik1s_m25_bgwf4n.wav'</span>);
+[dsrc2 fs] = wavread(<span class="string">'sounds/ssc/clean/t25_bwik1s_m25_bgwf4n_masker.wav'</span>);
 
 dmix = dsrc1 + dsrc2;
 
 NFFT = 640;
 NWIN = NFFT;
 NHOP = NFFT / 4;
-Ssrc1 = dB(<a href="http://www.ee.columbia.edu/~dpwe/resources/matlab/pvoc/">stft</a>(dsrc1, NFFT, NWIN, NHOP));
-Ssrc2 = dB(<a href="http://www.ee.columbia.edu/~dpwe/resources/matlab/pvoc/">stft</a>(dsrc2, NFFT, NWIN, NHOP));
-Smix = dB(<a href="http://www.ee.columbia.edu/~dpwe/resources/matlab/pvoc/">stft</a>(dmix, NFFT, NWIN, NHOP));
+Ssrc1 = dB(stft(dsrc1, NFFT, NWIN, NHOP));
+Ssrc2 = dB(stft(dsrc2, NFFT, NWIN, NHOP));
+Smix = dB(stft(dmix, NFFT, NWIN, NHOP));
 
-Msrc1 = <a href="http://www.ee.columbia.edu/~dpwe/resources/matlab/rastamat/">melfcc</a>(dsrc1);
-Msrc2 = <a href="http://www.ee.columbia.edu/~dpwe/resources/matlab/rastamat/">melfcc</a>(dsrc2);
-Mmix = <a href="http://www.ee.columbia.edu/~dpwe/resources/matlab/rastamat/">melfcc</a>(dmix);
-</pre><h3>plotall<a name="2"></a></h3>
-         <p>plotall lets you organize multiple subplots using a single function call.</p>
-<pre class="codeinput">plotall(Smix, Ssrc1, Ssrc2);
+Msrc1 = melfcc(dsrc1);
+Msrc2 = melfcc(dsrc2);
+Mmix = melfcc(dmix);
+</pre><h2>plotall<a name="2"></a></h2>
+         <p>plotall lets you organize multiple subplots using a single function call.</p><pre class="codeinput">plotall(Smix, Ssrc1, Ssrc2);
 <span class="comment">% Note that this is equivalent to passing in a cell array of data as a</span>
 <span class="comment">% single argument:</span>
 plotall({Smix, Ssrc1, Ssrc2});
-</pre><img vspace="5" hspace="5" src="html/demo_01.png" alt=""> <h3>Panning and zooming<a name="3"></a></h3><pre class="codeinput">
+</pre><img vspace="5" hspace="5" src="demo_01.png" alt=""> <h2>Panning and zooming<a name="3"></a></h2><pre class="codeinput">clf
 <span class="comment">% Note the nifty scrollbars that let you pan and zoom the x-, y-, and</span>
 <span class="comment">% color axes.  Right click and drag to scroll.  Middle click to zoom.</span>
 plotall(Smix, Ssrc1, Ssrc2)
-</pre><img vspace="5" hspace="5" src="html/demo_02.png" alt=""> <h3>Configuring subplot layout<a name="4"></a></h3><pre class="codeinput">
+plotall(Smix, Ssrc1, Ssrc2, <span class="string">'clim'</span>, [-40 27.2], <span class="string">'xlim'</span>, [45 127], <span class="string">'ylim'</span>, [1 100]);
+</pre><img vspace="5" hspace="5" src="demo_02.png" alt=""> <h2>Configuring subplot layout<a name="4"></a></h2><pre class="codeinput">clf
 <span class="comment">% plotall can automatically manage subplot layout.</span>
 <span class="comment">% (Note that subplots are filled in row-wise)</span>
 plotall(Smix, Smix, Ssrc1, Ssrc2, <span class="string">'subplot'</span>, [2 2]);
-</pre><img vspace="5" hspace="5" src="html/demo_03.png" alt=""> <h3>Aligning axes<a name="5"></a></h3><pre class="codeinput">
+</pre><img vspace="5" hspace="5" src="demo_03.png" alt=""> <h2>Aligning axes<a name="5"></a></h2><pre class="codeinput">clf
 <span class="comment">% Let each subplot have independent y and color axes, but keep the time</span>
 <span class="comment">% axis fixed across all subplots.</span>
 plotall(Ssrc1, Msrc1, <span class="string">'align'</span>, <span class="string">'x'</span>)
-</pre><img vspace="5" hspace="5" src="html/demo_04.png" alt=""> <pre class="codeinput">
+</pre><img vspace="5" hspace="5" src="demo_04.png" alt=""> <pre class="codeinput">clf
 <span class="comment">% Sometimes you don't want anything to be aligned.</span>
 plotall(dsrc1, Ssrc1, <span class="string">'align'</span>, <span class="string">''</span>)
-</pre><img vspace="5" hspace="5" src="html/demo_05.png" alt=""> <h3>Pages<a name="7"></a></h3><pre class="codeinput">
+</pre><img vspace="5" hspace="5" src="demo_05.png" alt=""> <h2>Pages<a name="7"></a></h2><pre class="codeinput">clf
 <span class="comment">% If the 'subplots' property is set but there are more arguments than</span>
 <span class="comment">% subplots, the subplots are split over multiple "pages".  Pages can be</span>
 <span class="comment">% navigated using the controls on the top right of the figure.</span>
-<span class="comment">% See the '<a href="http://github.com/ronw/plottools/blob/master/plot_pages.m">plot_pages</a>' function for another way to get this functionality</span>
+<span class="comment">% See the'plot_pages' function for another way to get this functionality</span>
 <span class="comment">% without the rest of plotall's goodies.</span>
 plotall(Smix, Ssrc1, Ssrc2, <span class="string">'subplot'</span>, [2 1])
-</pre><img vspace="5" hspace="5" src="html/demo_06.png" alt=""> <h3>More properties<a name="8"></a></h3><pre class="codeinput">
+</pre><img vspace="5" hspace="5" src="demo_06.png" alt=""> <h2>More properties<a name="8"></a></h2><pre class="codeinput">clf
 <span class="comment">% You can pass in name-value pairs to configure different properties</span>
 <span class="comment">% of the subplots.  Passing cell arrays in lets you configure</span>
 <span class="comment">% different properties for each subplot, otherwise properties are</span>
@@ -148,9 +145,7 @@ plotall(Smix, Ssrc1, Ssrc2, <span class="string">'clim'</span>, [-25 25], <span 
 	<span class="string">'xlabel'</span>, {<span class="string">''</span>, <span class="string">''</span>, <span class="string">'Time (seconds)'</span>}, <span class="keyword">...</span>
 	<span class="string">'title'</span>, {<span class="string">'Mixture'</span>, <span class="string">'Clean source 1'</span>, <span class="string">'Clean source 2'</span>}, <span class="keyword">...</span>
 	<span class="string">'pub'</span>, true)  <span class="comment">% "'pub', true" turns off scrollbars.</span>
-</pre><img vspace="5" hspace="5" src="html/demo_07.png" alt="">
-
- <h2>Usage<a name="9"></a></h2><pre class="codeinput">help <span class="string">plotall</span>
+</pre><img vspace="5" hspace="5" src="demo_07.png" alt=""> <h2>Usage<a name="9"></a></h2><pre class="codeinput">help <span class="string">plotall</span>
 </pre><pre class="codeoutput">  plotall(data1, data2, ..., datan, property1, value1, property2, value2, ...)
   
   Plots all of the matrices contained in data1, data2, ... as subplots
@@ -203,28 +198,96 @@ plotall(Smix, Ssrc1, Ssrc2, <span class="string">'clim'</span>, [-25 25], <span 
   the horizontal axis labels from milliseconds to seconds.
   
   2008-11-12 ronw@ee.columbia.edu
-</pre>
-    <h2>Authors</h2>
-	<p><a href="http://www.ee.columbia.edu/~ronw">Ron Weiss</a> (ronw@ee.columbia.edu)</p>
+
+</pre><p class="footer"><br>
+            Published with MATLAB&reg; 7.8<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+%% Load some data
+[dsrc1 fs] = wavread('sounds/ssc/clean/t25_bwik1s_m25_bgwf4n.wav');
+[dsrc2 fs] = wavread('sounds/ssc/clean/t25_bwik1s_m25_bgwf4n_masker.wav');
+
+dmix = dsrc1 + dsrc2;
+
+NFFT = 640;
+NWIN = NFFT; 
+NHOP = NFFT / 4;
+Ssrc1 = dB(stft(dsrc1, NFFT, NWIN, NHOP));
+Ssrc2 = dB(stft(dsrc2, NFFT, NWIN, NHOP));
+Smix = dB(stft(dmix, NFFT, NWIN, NHOP));
+
+Msrc1 = melfcc(dsrc1);
+Msrc2 = melfcc(dsrc2);
+Mmix = melfcc(dmix);
 
 
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/ronw/plottools/zipball/master">zip</a> or
-      <a href="http://github.com/ronw/plottools/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre class="shell">$ git clone git://github.com/ronw/plottools</pre>
-    </p>
+%% plotall
+% plotall lets you organize multiple subplots using a single function call.
+plotall(Smix, Ssrc1, Ssrc2);
+% Note that this is equivalent to passing in a cell array of data as a
+% single argument:
+plotall({Smix, Ssrc1, Ssrc2});
 
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/ronw/plottools">ronw/plottools</a>
-    </div>
+%% Panning and zooming
+clf
+% Note the nifty scrollbars that let you pan and zoom the x-, y-, and 
+% color axes.  Right click and drag to scroll.  Middle click to zoom.
+plotall(Smix, Ssrc1, Ssrc2)
+plotall(Smix, Ssrc1, Ssrc2, 'clim', [-40 27.2], 'xlim', [45 127], 'ylim', [1 100]);
 
-  </div>
+%% Configuring subplot layout
+clf
+% plotall can automatically manage subplot layout.
+% (Note that subplots are filled in row-wise)
+plotall(Smix, Smix, Ssrc1, Ssrc2, 'subplot', [2 2]);
 
-  
-</body>
+%% Aligning axes
+clf
+% Let each subplot have independent y and color axes, but keep the time
+% axis fixed across all subplots.
+plotall(Ssrc1, Msrc1, 'align', 'x')
+
+%%
+clf
+% Sometimes you don't want anything to be aligned.
+plotall(dsrc1, Ssrc1, 'align', '')
+
+%% Pages
+clf
+% If the 'subplots' property is set but there are more arguments than
+% subplots, the subplots are split over multiple "pages".  Pages can be
+% navigated using the controls on the top right of the figure.
+% See the'plot_pages' function for another way to get this functionality
+% without the rest of plotall's goodies.
+plotall(Smix, Ssrc1, Ssrc2, 'subplot', [2 1])
+
+%% More properties
+clf
+% You can pass in name-value pairs to configure different properties
+% of the subplots.  Passing cell arrays in lets you configure
+% different properties for each subplot, otherwise properties are
+% shared across all subplots.  See 'help plotall' for more details.
+t = [1:NHOP:length(dmix)] / fs;
+% Quantize things to the nearest hundredth of a second.
+t = round(t * 100) / 100;
+xticks = 1:20:length(t);
+f = [0:NFFT/2] * fs / NFFT * 1e-3;
+yticks = 1:80:length(f);
+plotall(Smix, Ssrc1, Ssrc2, 'clim', [-25 25], 'colorbar', false, ...
+	'ytick', yticks, 'yticklabel', f(yticks), ...
+	'ylabel', 'Frequency (kHz)', ...
+	'xtick', {[], [], xticks}, 'xticklabel', t(xticks), ...
+	'xlabel', {'', '', 'Time (seconds)'}, ...
+	'title', {'Mixture', 'Clean source 1', 'Clean source 2'}, ...
+	'pub', true)  % "'pub', true" turns off scrollbars.
+
+
+%% Usage
+help plotall
+
+
+##### SOURCE END #####
+-->
+   </body>
 </html>
