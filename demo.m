@@ -26,7 +26,7 @@ plotall({Smix, Ssrc1, Ssrc2});
 %% Panning and zooming
 clf
 % Note the nifty scrollbars that let you pan and zoom the x-, y-, and 
-% color axes.  Right click and drag to scroll.  Middle click to zoom.
+% color axes.  Left click and drag to scroll.  Right click to zoom.
 plotall(Smix, Ssrc1, Ssrc2)
 plotall(Smix, Ssrc1, Ssrc2, 'clim', [-40 27.2], 'xlim', [45 127], 'ylim', [1 100]);
 
