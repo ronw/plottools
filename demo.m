@@ -76,6 +76,20 @@ plotall(Smix, Ssrc1, Ssrc2, 'clim', [-25 25], 'colorbar', false, ...
 	'title', {'Mixture', 'Clean source 1', 'Clean source 2'}, ...
 	'pub', true)  % "'pub', true" turns off the scrollbars.
 
+%%
+% plotall gets even more useful when combined with the celltools http://github.com/ronw/celltools package.
+cd /home/ronw/remote/home.ee/projects/vq/grid/train/16kHz/1
+% Get a list of all wave files in the current directory.
+wavfiles = glob('*.wav');
+% There sure are a lot of files here, but we're going to plot them all at once.
+length(wavfiles)
+% Define a function to compute features from a wavefile.
+compute_features = @(filename) dB(stft(wavread(filename), NFFT, NWIN, NHOP));
+% Build a super simple spectrogram browser for *all* of wavfiles.
+plotall(lazymap(compute_features, wavfiles), 'subplot', [1 1], 'title', wavfiles)
+% Since lazymap (unlike cellfun or map) only calls compute_features on
+% a particular element of wavfiles when it is requested, it doesn't
+% have to load the entire directory into memory.
 
 %% Usage
 help plotall

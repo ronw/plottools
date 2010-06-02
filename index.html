@@ -150,6 +150,27 @@ plotall(Smix, Ssrc1, Ssrc2, <span class="string">'clim'</span>, [-25 25], <span 
 	<span class="string">'pub'</span>, true)  <span class="comment">% "'pub', true" turns off scrollbars.</span>
 </pre><img vspace="5" hspace="5" src="html/demo_07.png" alt="">
 
+ <p>plotall gets even more useful when combined with the <a href="http://github.com/ronw/celltools">celltools</a> package.</p>
+<pre class="codeinput">
+<span class="comment">% Get a list of all wave files in the current directory.</span>
+wavfiles = <a href="http://github.com/ronw/celltools/blob/master/glob.m">glob</a>(<span class="string">'*.wav'</span>);
+<span class="comment">% There sure are a lot of files here, but we're going to plot them all at once.</span>
+length(wavfiles)
+</pre>
+<pre class="codeoutput">ans =
+   500
+</pre>
+<pre class="codeinput">
+<span class="comment">% Define a function to compute features from a wavefile.</span>
+compute_features = @(filename) dB(stft(wavread(filename), NFFT, NWIN, NHOP));
+<span class="comment">% Build a super simple spectrogram browser for all of wavfiles.</span>
+plotall(<a href="http://github.com/ronw/celltools/blob/master/@lazymap/lazymap.m">lazymap</a>(compute_features, wavfiles), <span class="string">'subplot'</span>, [1 1], <span class="string">'title'</span>, wavfiles)
+<span class="comment">% Since <a href="http://github.com/ronw/celltools/blob/master/@lazymap/lazymap.m">lazymap</a> (unlike <a href="http://www.mathworks.com/access/helpdesk/help/techdoc/ref/cellfun.html">cellfun</a> or <a href="http://github.com/ronw/celltools/blob/master/map.m">map</a>) only calls compute_features on</span>
+<span class="comment">% a particular element of wavfiles when it is requested, it doesn't</span>
+<span class="comment">% have to load the entire directory into memory.</span>
+</pre>
+<img vspace="5" hspace="5" src="html/demo_08.png" alt="">
+
  <h2>Usage<a name="9"></a></h2><pre class="codeinput">help <span class="string">plotall</span>
 </pre><pre class="codeoutput">  plotall(data1, data2, ..., datan, property1, value1, property2, value2, ...)
   
